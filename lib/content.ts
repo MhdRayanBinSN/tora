@@ -26,31 +26,37 @@ export const stack = [
   {
     layer: "Frontend",
     technology: "React",
+    icon: "/images/stack/React.svg",
     use: "Fast, iterative product UI - dashboards, MVPs, and client-facing apps that need to move quickly through revisions."
   },
   {
     layer: "Frontend",
     technology: "Angular",
+    icon: "/images/stack/Angular.svg",
     use: "Large, structured enterprise and internal dashboards where a strict framework and long-term maintainability matter more than iteration speed."
   },
   {
     layer: "Frontend",
     technology: "Next.js",
+    icon: "/images/stack/Next.js.svg",
     use: "SEO-critical marketing sites and product front-ends that need server rendering, fast load times, and search visibility."
   },
   {
     layer: "Backend",
     technology: ".NET (C#)",
+    icon: "/images/stack/NET core.svg",
     use: "Enterprise systems integration when a client's existing stack, compliance needs, or internal tooling already lives in the Microsoft ecosystem."
   },
   {
     layer: "Backend",
     technology: "FastAPI (Python)",
+    icon: "/images/stack/FastAPI.svg",
     use: "ML and data-heavy services, APIs that wrap data pipelines or AI models, and products that benefit from Python's data ecosystem."
   },
   {
     layer: "Backend",
     technology: "Express (Node.js)",
+    icon: "/images/stack/Express.svg",
     use: "Lightweight APIs and microservices that need to ship fast, stay simple, and integrate cleanly with product teams."
   }
 ];

@@ -30,8 +30,8 @@ export function Nav() {
   }
 
   return (
-    <nav aria-label="Primary" className="flex flex-1 items-center justify-center">
-      <div className="hidden items-stretch lg:flex">
+    <nav aria-label="Primary" className="flex items-center justify-end">
+      <div className="hidden items-center gap-1 lg:flex">
         <TopLink href="/about" label="About" withCaret active={pathname.startsWith("/about")} />
         <div
           className="group"
@@ -42,10 +42,10 @@ export function Nav() {
         >
           <button
             type="button"
-            className={`flex min-h-[78px] items-center gap-2 px-8 text-base font-semibold transition ${
+            className={`flex h-[68px] items-center gap-1.5 px-4 text-[13px] font-semibold tracking-wide transition-colors duration-150 ${
               servicesActive || servicesOpen
-                ? "bg-background text-ink"
-                : "text-[#B995E7] hover:bg-background hover:text-ink group-hover:bg-background group-hover:text-ink group-focus-within:bg-background group-focus-within:text-ink"
+                ? "text-indigo"
+                : "text-ink/55 hover:text-ink"
             }`}
             aria-expanded={servicesOpen}
             aria-controls="services-mega-menu"
@@ -57,13 +57,18 @@ export function Nav() {
           <MegaMenu open={servicesOpen} />
         </div>
         <TopLink href="/stack" label="Stack" active={pathname.startsWith("/stack")} />
-        <TopLink href="/contact" label="Contact" active={pathname.startsWith("/contact")} />
+        <Link
+          href="/contact"
+          className="ml-3 inline-flex items-center rounded-lg bg-ink px-5 py-2 text-[13px] font-semibold text-white transition-all duration-150 hover:bg-ink/85"
+        >
+          Contact
+        </Link>
       </div>
-      <div className="flex items-center gap-4 text-sm font-semibold lg:hidden">
-        <Link href="/services" className="text-background">
+      <div className="flex items-center gap-3 text-sm font-semibold lg:hidden">
+        <Link href="/services" className="text-ink/60 transition hover:text-ink">
           Services
         </Link>
-        <Link href="/contact" className="rounded-full bg-background px-4 py-2 text-ink">
+        <Link href="/contact" className="rounded-lg bg-ink px-4 py-2 text-white transition hover:bg-ink/85">
           Contact
         </Link>
       </div>
@@ -85,8 +90,10 @@ function TopLink({
   return (
     <Link
       href={href}
-      className={`flex min-h-[78px] items-center gap-2 px-8 text-base font-semibold transition ${
-        active ? "bg-background text-ink" : "text-[#B995E7] hover:bg-background hover:text-ink"
+      className={`flex h-[68px] items-center gap-1.5 px-4 text-[13px] font-semibold tracking-wide transition-colors duration-150 ${
+        active
+          ? "text-indigo"
+          : "text-ink/55 hover:text-ink"
       }`}
       aria-current={active ? "page" : undefined}
     >
@@ -112,18 +119,29 @@ function MegaMenu({ open }: { open: boolean }) {
   return (
     <div
       id="services-mega-menu"
-      className={`absolute left-1/2 top-[78px] w-[min(1560px,calc(100vw_-_48px))] -translate-x-1/2 pt-0 transition duration-200 ${
+      className={`absolute left-1/2 top-[68px] w-[min(1560px,calc(100vw_-_48px))] -translate-x-1/2 pt-0 transition duration-200 ${
         open
           ? "pointer-events-auto opacity-100"
           : "pointer-events-none opacity-0 group-hover:pointer-events-auto group-hover:opacity-100 group-focus-within:pointer-events-auto group-focus-within:opacity-100"
       }`}
     >
-      <div className="grid gap-0 overflow-hidden rounded-b-lg bg-[#F5F5F4] text-ink shadow-[0_28px_90px_rgba(0,0,0,0.32)] ring-1 ring-black/5 lg:grid-cols-[1.05fr_1.15fr_1.15fr_1.05fr_1.05fr]">
-        <div className="relative overflow-hidden p-10">
-          <p className="font-display text-4xl font-semibold leading-tight">Solutions & Services</p>
-          <p className="mt-28 text-5xl font-semibold leading-tight text-white/70 [text-shadow:0_0_26px_rgba(14,14,16,0.12)]">
-            From idea<br />to scale
-          </p>
+      <div className="grid gap-0 overflow-hidden rounded-lg bg-[#F5F5F4] text-ink shadow-[0_28px_90px_rgba(0,0,0,0.18)] ring-1 ring-black/5 lg:grid-cols-[1.05fr_1.15fr_1.15fr_1.05fr_1.05fr]">
+        <div className="relative overflow-hidden bg-gradient-to-br from-[#1a1a2e] via-[#16162a] to-[#0f0f1a] p-10">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_20%,rgba(124,77,255,0.15),transparent_60%)]" aria-hidden="true" />
+          <div className="relative">
+            <p className="font-display text-3xl font-semibold leading-tight text-white">Solutions &<br />Services</p>
+            <div className="mt-12">
+              <p className="text-[3rem] font-bold leading-[1.1] tracking-tight">
+                <span className="bg-gradient-to-r from-indigo via-violet to-[#B995E7] bg-clip-text text-transparent">From idea</span>
+                <br />
+                <span className="bg-gradient-to-r from-violet to-[#B995E7] bg-clip-text text-transparent">to scale</span>
+              </p>
+            </div>
+            <Link href="/services" className="mt-8 inline-flex items-center gap-2 text-sm font-medium text-white/60 transition hover:text-white">
+              Explore all
+              <span aria-hidden="true">→</span>
+            </Link>
+          </div>
         </div>
         <MegaColumn title="Solutions">
           <FeatureLink

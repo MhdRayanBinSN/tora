@@ -1,3 +1,4 @@
+import Image from "next/image";
 import type { Metadata } from "next";
 import { CTA } from "@/components/sections/CTA";
 import { stack } from "@/lib/content";
@@ -31,9 +32,12 @@ export default function StackPage() {
         <div className="container">
           <div className="grid gap-px overflow-hidden rounded-lg border border-hairline bg-hairline">
             {stack.map((item) => (
-              <article key={item.technology} className="grid gap-4 bg-background p-6 md:grid-cols-[0.3fr_0.3fr_1fr] md:items-start">
-                <p className="font-mono text-xs uppercase text-muted">{item.layer}</p>
-                <h2 className="font-display text-2xl font-semibold text-ink">{item.technology}</h2>
+              <article key={item.technology} className="grid gap-4 bg-background p-6 md:grid-cols-[auto_0.25fr_1fr] md:items-start">
+                <Image src={item.icon} alt={item.technology} width={32} height={32} className="h-8 w-8" />
+                <div>
+                  <p className="font-mono text-xs uppercase text-muted">{item.layer}</p>
+                  <h2 className="mt-1 font-display text-2xl font-semibold text-ink">{item.technology}</h2>
+                </div>
                 <p className="text-sm leading-6 text-muted">{item.use}</p>
               </article>
             ))}
