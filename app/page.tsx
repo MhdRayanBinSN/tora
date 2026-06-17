@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { CTA } from "@/components/sections/CTA";
 import { EngagementModels } from "@/components/sections/EngagementModels";
 import { Hero } from "@/components/sections/Hero";
+import { Process } from "@/components/sections/Process";
 import { ServiceGrid } from "@/components/sections/ServiceGrid";
 import { StackShowcase } from "@/components/sections/StackShowcase";
 import { ButtonLink } from "@/components/ui/Button";
@@ -38,6 +39,7 @@ export default function HomePage() {
         </div>
       </section>
       <StackShowcase compact />
+      <Process />
       <EngagementModels />
       <CTA />
     </>
