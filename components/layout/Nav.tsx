@@ -55,7 +55,7 @@ export function Nav() {
           </button>
           <MegaMenu open={servicesOpen} />
         </div>
-        <TopLink href="/stack" label="Stack" active={pathname.startsWith("/stack")} />
+        <TopLink href="/process" label="Process" active={pathname.startsWith("/process")} />
         <Link
           href="/contact"
           className="ml-3 inline-flex items-center rounded-lg bg-ink px-5 py-2 text-[13px] font-semibold text-white transition-all duration-150 hover:bg-ink/85"
@@ -63,11 +63,14 @@ export function Nav() {
           Contact
         </Link>
       </div>
-      <div className="flex items-center gap-3 text-sm font-semibold lg:hidden">
+      <div className="flex items-center gap-4.5 text-[13px] font-semibold lg:hidden">
         <Link href="/services" className="text-ink/60 transition hover:text-ink">
           Services
         </Link>
-        <Link href="/contact" className="rounded-lg bg-ink px-4 py-2 text-white transition hover:bg-ink/85">
+        <Link href="/process" className="text-ink/60 transition hover:text-ink">
+          Process
+        </Link>
+        <Link href="/contact" className="rounded-lg bg-ink px-4 py-1.5 text-white transition hover:bg-ink/85">
           Contact
         </Link>
       </div>

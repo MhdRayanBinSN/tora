@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { CTA } from "@/components/sections/CTA";
 import { EngagementModels } from "@/components/sections/EngagementModels";
 import { CoordinateLabel } from "@/components/ui/CoordinateLabel";
@@ -48,7 +49,7 @@ export default function AboutPage() {
               Process replaces borrowed credibility.
             </h2>
             <p className="mt-5 text-base leading-7 text-muted">
-              Tora is not filling the site with fake client logos or invented case studies. The useful proof is the way the work is scoped, built, reviewed, and released.
+              Tora is not filling the site with fake client logos or invented case studies. The useful proof is the way the work is scoped, built, reviewed, and released. Learn more on our <Link href="/process" className="font-medium text-indigo hover:underline">detailed process page</Link>.
             </p>
           </div>
           <div className="mt-10 grid gap-px overflow-hidden rounded-lg border border-hairline bg-hairline md:grid-cols-2 lg:grid-cols-4">

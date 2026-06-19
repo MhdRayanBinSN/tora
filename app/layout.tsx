@@ -47,8 +47,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${geist.variable} ${inter.variable} ${geistMono.variable}`}>
-      <body>
+    <html
+      lang="en"
+      className={`${geist.variable} ${inter.variable} ${geistMono.variable}`}
+      data-scroll-behavior="smooth"
+      suppressHydrationWarning
+    >
+      <body suppressHydrationWarning>
         <Header />
         <main>{children}</main>
         <Footer />

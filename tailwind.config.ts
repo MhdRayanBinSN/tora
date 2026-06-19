@@ -21,8 +21,8 @@ const config: Config = {
         "violet-light": "#B995E7"
       },
       fontFamily: {
-        display: ["var(--font-geist)", "Inter", "system-ui", "sans-serif"],
-        body: ["var(--font-inter)", "system-ui", "sans-serif"],
+        display: ["TTInterfacesRegular", "TT Interfaces Regular", "Inter", "system-ui", "sans-serif"],
+        body: ["TTInterfacesRegular", "TT Interfaces Regular", "Inter", "system-ui", "sans-serif"],
         mono: ["var(--font-geist-mono)", "ui-monospace", "SFMono-Regular", "monospace"]
       },
       spacing: {
