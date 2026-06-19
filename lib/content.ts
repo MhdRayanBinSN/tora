@@ -67,7 +67,7 @@ export const services = [
     title: "MVP development",
     short:
       "Turn a focused product idea into a testable first release with the right scope, architecture, and delivery rhythm.",
-    icon: "/images/icons/mvp-development.svg",
+    icon: "/images/icons/mvp-development.png",
     what:
       "MVP development is the work of finding the smallest serious version of a product and building it well enough for real users, real feedback, and real decisions.",
     when:
@@ -82,7 +82,7 @@ export const services = [
     title: "Custom software development",
     short:
       "Build internal tools, client portals, and operational systems around the way the business actually works.",
-    icon: "/images/icons/custom-software.svg",
+    icon: "/images/icons/custom-software.png",
     what:
       "Custom software solves a specific business problem that off-the-shelf tools cannot handle cleanly without awkward workarounds.",
     when:
@@ -97,7 +97,7 @@ export const services = [
     title: "AI development and integration",
     short:
       "Add AI where it improves a workflow, supports a decision, or turns internal data into a usable product feature.",
-    icon: "/images/icons/ai-integration.svg",
+    icon: "/images/icons/ai-integration.png",
     what:
       "AI integration connects models, data, prompts, and product interfaces so the feature works inside the software people already use.",
     when:
@@ -112,7 +112,7 @@ export const services = [
     title: "Product design",
     short:
       "Clarify the product shape before code: flows, screens, interaction states, and decisions that reduce build waste.",
-    icon: "/images/icons/product-design.svg",
+    icon: "/images/icons/product-design.png",
     what:
       "Product design turns a product goal into the screens, flows, and interface rules needed to build with fewer guesses.",
     when:
@@ -127,7 +127,7 @@ export const services = [
     title: "Cloud and DevOps",
     short:
       "Set up deployment, environments, monitoring, and release workflows that support the product after launch.",
-    icon: "/images/icons/cloud-devops.svg",
+    icon: "/images/icons/cloud-devops.png",
     what:
       "Cloud and DevOps work gives the product a stable path from development to production with clear environments and controlled releases.",
     when:
@@ -142,7 +142,7 @@ export const services = [
     title: "SaaS development",
     short:
       "Build multi-user software with the product, account, billing, admin, and release foundations a SaaS business needs.",
-    icon: "/images/icons/saas-development.svg",
+    icon: "/images/icons/saas-development.png",
     what:
       "SaaS development turns a repeatable service or workflow into a product customers can access, use, and grow with over time.",
     when:

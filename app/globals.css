@@ -4,7 +4,18 @@
 
 :root {
   color-scheme: light;
-  background: #FAFAF9;
+  --bg-primary: #FAFAF9;
+  --bg-elevated: #FFFFFF;
+  --ink: #0E0E10;
+  --ink-soft: #2A2A2E;
+  --muted: #78786E;
+  --muted-light: #B0B0A6;
+  --hairline: #E8E6E1;
+  --hairline-soft: #F0EEEA;
+  --indigo: #3D5AFE;
+  --violet: #7C4DFF;
+  --accent-glow: rgba(61, 90, 254, 0.12);
+  --violet-glow: rgba(124, 77, 255, 0.10);
 }
 
 * {
@@ -18,10 +29,12 @@ html {
 body {
   min-height: 100vh;
   margin: 0;
-  background: #FAFAF9;
-  color: #0E0E10;
+  background: var(--bg-primary);
+  color: var(--ink);
   font-family: var(--font-inter), system-ui, sans-serif;
   text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 a {
@@ -57,13 +70,83 @@ textarea {
   color: transparent;
 }
 
-.hairline-grid {
-  background-image:
-    linear-gradient(#E8E6E1 1px, transparent 1px),
-    linear-gradient(90deg, #E8E6E1 1px, transparent 1px);
-  background-size: 56px 56px;
-  background-position: center top;
+/* Subtle dot pattern for premium backgrounds */
+.dot-pattern {
+  background-image: radial-gradient(circle, #D4D4CC 0.75px, transparent 0.75px);
+  background-size: 24px 24px;
 }
+
+/* Premium noise texture overlay */
+.noise-overlay::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Animated shimmer for premium elements */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.shimmer {
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.06) 50%, transparent 100%);
+  background-size: 200% 100%;
+  animation: shimmer 3s ease-in-out infinite;
+}
+
+/* Floating animation for hero elements */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes float-delayed {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-12px); }
+}
+
+/* Gentle pulse for glows */
+@keyframes glow-pulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+/* Gradient border animation */
+@keyframes gradient-rotate {
+  0% { --angle: 0deg; }
+  100% { --angle: 360deg; }
+}
+
+/* Premium card hover glow */
+.card-glow {
+  position: relative;
+}
+
+.card-glow::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, rgba(61,90,254,0.15), rgba(124,77,255,0.15));
+  opacity: 0;
+  z-index: -1;
+  transition: opacity 0.4s ease;
+  filter: blur(12px);
+}
+
+.card-glow:hover::after {
+  opacity: 1;
+}
+
+/* Stagger animation classes */
+.stagger-1 { animation-delay: 0.1s; }
+.stagger-2 { animation-delay: 0.2s; }
+.stagger-3 { animation-delay: 0.3s; }
+.stagger-4 { animation-delay: 0.4s; }
 
 @media (prefers-reduced-motion: reduce) {
   *,

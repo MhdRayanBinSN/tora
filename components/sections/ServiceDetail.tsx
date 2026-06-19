@@ -29,7 +29,7 @@ export function ServiceDetail({ service }: ServiceDetailProps) {
       <section className="py-section-sm">
         <div className="container grid gap-8 lg:grid-cols-[0.8fr_1.2fr]">
           <Card className="h-fit">
-            <Image src={service.icon} alt="" width={64} height={64} className="h-14 w-14" />
+            <Image src={service.icon} alt="" width={128} height={128} className="h-16 w-16 rounded-xl" />
             <h2 className="mt-8 font-display text-2xl font-semibold text-ink">
               Stack connection
             </h2>

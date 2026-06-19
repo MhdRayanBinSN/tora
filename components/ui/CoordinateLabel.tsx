@@ -6,7 +6,7 @@ type CoordinateLabelProps = {
 
 export function CoordinateLabel({ className = "" }: CoordinateLabelProps) {
   return (
-    <p className={`font-mono text-[0.68rem] uppercase text-muted ${className}`}>
+    <p className={`font-mono text-[0.68rem] uppercase tracking-widest text-muted ${className}`}>
       {site.coordinate}
     </p>
   );

@@ -42,11 +42,10 @@ export function Nav() {
         >
           <button
             type="button"
-            className={`flex h-[68px] items-center gap-1.5 px-4 text-[13px] font-semibold tracking-wide transition-colors duration-150 ${
-              servicesActive || servicesOpen
+            className={`flex h-[68px] items-center gap-1.5 px-4 text-[13px] font-semibold tracking-wide transition-colors duration-150 ${servicesActive || servicesOpen
                 ? "text-indigo"
                 : "text-ink/55 hover:text-ink"
-            }`}
+              }`}
             aria-expanded={servicesOpen}
             aria-controls="services-mega-menu"
             onClick={() => setServicesOpen((open) => !open)}
@@ -90,11 +89,10 @@ function TopLink({
   return (
     <Link
       href={href}
-      className={`flex h-[68px] items-center gap-1.5 px-4 text-[13px] font-semibold tracking-wide transition-colors duration-150 ${
-        active
+      className={`flex h-[68px] items-center gap-1.5 px-4 text-[13px] font-semibold tracking-wide transition-colors duration-150 ${active
           ? "text-indigo"
           : "text-ink/55 hover:text-ink"
-      }`}
+        }`}
       aria-current={active ? "page" : undefined}
     >
       {label}
@@ -119,11 +117,10 @@ function MegaMenu({ open }: { open: boolean }) {
   return (
     <div
       id="services-mega-menu"
-      className={`absolute left-1/2 top-[68px] w-[min(1560px,calc(100vw_-_48px))] -translate-x-1/2 pt-0 transition duration-200 ${
-        open
+      className={`absolute left-1/2 top-[72px] w-[min(1560px,calc(100vw_-_48px))] -translate-x-1/2 pt-0 transition duration-200 ${open
           ? "pointer-events-auto opacity-100"
           : "pointer-events-none opacity-0 group-hover:pointer-events-auto group-hover:opacity-100 group-focus-within:pointer-events-auto group-focus-within:opacity-100"
-      }`}
+        }`}
     >
       <div className="grid gap-0 overflow-hidden rounded-lg bg-[#F5F5F4] text-ink shadow-[0_28px_90px_rgba(0,0,0,0.18)] ring-1 ring-black/5 lg:grid-cols-[1.05fr_1.15fr_1.15fr_1.05fr_1.05fr]">
         <div className="relative overflow-hidden bg-gradient-to-br from-[#1a1a2e] via-[#16162a] to-[#0f0f1a] p-10">
@@ -146,7 +143,7 @@ function MegaMenu({ open }: { open: boolean }) {
         <MegaColumn title="Solutions">
           <FeatureLink
             href="/services/mvp-development"
-            image="/images/icons/mvp-development.svg"
+            image="/images/icons/mvp-development.png"
             title="For startups"
             body="Shape a focused MVP, launch it cleanly, and keep the next version possible."
             cta="Startup solutions"
@@ -162,7 +159,7 @@ function MegaMenu({ open }: { open: boolean }) {
         </MegaColumn>
         <MegaColumn title="Services">
           <div className="mb-5 rounded-md border border-hairline bg-background p-4">
-            <Image src="/images/icons/custom-software.svg" alt="" width={64} height={64} className="h-14 w-14" />
+            <Image src="/images/icons/custom-software.png" alt="" width={64} height={64} className="h-14 w-14" />
           </div>
           <p className="mb-4 text-sm leading-6 text-[#4A4A52]">
             Explore core services designed for product clarity, delivery speed, and maintainable scale.
@@ -179,7 +176,7 @@ function MegaMenu({ open }: { open: boolean }) {
         </MegaColumn>
         <MegaColumn title="Our approach">
           <div className="mb-5 rounded-md border border-hairline bg-background p-4">
-            <Image src="/images/icons/product-design.svg" alt="" width={64} height={64} className="h-14 w-14" />
+            <Image src="/images/icons/product-design.png" alt="" width={64} height={64} className="h-14 w-14" />
           </div>
           <h3 className="text-base font-semibold">Strategy | Design | Development</h3>
           <p className="mt-3 text-sm leading-6 text-[#4A4A52]">
@@ -196,7 +193,7 @@ function MegaMenu({ open }: { open: boolean }) {
         </MegaColumn>
         <MegaColumn title="Engagement models" isLast>
           <div className="mb-5 rounded-md border border-hairline bg-background p-4">
-            <Image src="/images/icons/saas-development.svg" alt="" width={64} height={64} className="h-14 w-14" />
+            <Image src="/images/icons/saas-development.png" alt="" width={64} height={64} className="h-14 w-14" />
           </div>
           <div className="space-y-8">
             {engagementModels.map((model) => (

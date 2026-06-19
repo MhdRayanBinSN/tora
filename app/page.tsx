@@ -22,12 +22,17 @@ export default function HomePage() {
   return (
     <>
       <Hero />
-      <section className="py-section-sm">
-        <div className="container">
-          <div className="mb-10 flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
+      <section className="relative overflow-hidden py-section-sm">
+        {/* Section background accent */}
+        <div
+          className="pointer-events-none absolute -right-32 top-0 h-[400px] w-[400px] rounded-full bg-[radial-gradient(circle,rgba(61,90,254,0.04)_0%,transparent_70%)]"
+          aria-hidden="true"
+        />
+        <div className="container relative">
+          <div className="mb-12 flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
             <div>
-              <p className="font-mono text-xs uppercase text-muted">Services</p>
-              <h2 className="mt-4 max-w-2xl font-display text-4xl font-semibold text-ink">
+              <p className="font-mono text-xs uppercase tracking-[0.2em] text-muted-light">Services</p>
+              <h2 className="mt-4 max-w-2xl font-display text-4xl font-bold tracking-tight text-ink">
                 Focused capabilities for the full product path.
               </h2>
             </div>

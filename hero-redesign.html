@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Tora — Hero Redesign</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  /* ============================================
+     CSS CUSTOM PROPERTIES
+     ============================================ */
+  :root {
+    --purple-400: #9D7CFF;
+    --purple-500: #7C4DFF;
+    --purple-600: #6B3FDB;
+    --indigo-400: #5B6EFE;
+    --indigo-500: #3D5AFE;
+    --indigo-600: #2E4ADE;
+    --blue-400: #4B8BFF;
+    --blue-500: #2979FF;
+    --ink: #0E0E10;
+    --muted: #6B6B6F;
+    --hairline: #E8E6E1;
+    --bg: #FAFAF9;
+    --white: #FFFFFF;
+    --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  }
+
+  /* ============================================
+     RESET & BASE
+     ============================================ */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    min-height: 100vh;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  /* ============================================
+     HERO SECTION
+     ============================================ */
+  .hero {
+    position: relative;
+    overflow: hidden;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 6rem 2rem 4rem;
+  }
+
+  /* ---------- Animated Gradient Mesh Background ---------- */
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+  }
+  .hero-bg::before {
+    content: '';
+    position: absolute;
+    inset: -50%;
+    background:
+      radial-gradient(ellipse 60% 50% at 20% 30%, rgba(61, 90, 254, 0.06) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 60% at 80% 70%, rgba(124, 77, 255, 0.05) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 40% at 50% 50%, rgba(41, 121, 255, 0.03) 0%, transparent 50%);
+    animation: mesh-shift 20s ease-in-out infinite alternate;
+  }
+  @keyframes mesh-shift {
+    0%   { transform: translate(0%, 0%) rotate(0deg);   }
+    25%  { transform: translate(2%, -1%) rotate(1deg);  }
+    50%  { transform: translate(-1%, 2%) rotate(-0.5deg); }
+    75%  { transform: translate(-2%, -1.5%) rotate(0.8deg); }
+    100% { transform: translate(1%, 1%) rotate(-0.3deg); }
+  }
+
+  /* ---------- Grid Overlay ---------- */
+  .hero-grid {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    opacity: 0.35;
+    background-image:
+      linear-gradient(var(--hairline) 1px, transparent 1px),
+      linear-gradient(90deg, var(--hairline) 1px, transparent 1px);
+    background-size: 64px 64px;
+    mask-image: radial-gradient(ellipse 80% 100% at 50% 50%, black 30%, transparent 70%);
+    -webkit-mask-image: radial-gradient(ellipse 80% 100% at 50% 50%, black 30%, transparent 70%);
+  }
+
+  /* ---------- Glowing Radial Blob Behind Chart ---------- */
+  .hero-blob {
+    position: absolute;
+    right: -5%;
+    top: 10%;
+    width: 55%;
+    height: 80%;
+    z-index: 1;
+    background: radial-gradient(ellipse at 50% 50%, rgba(124, 77, 255, 0.12) 0%, rgba(61, 90, 254, 0.06) 30%, transparent 65%);
+    filter: blur(60px);
+    border-radius: 50%;
+    pointer-events: none;
+    animation: blob-pulse 8s ease-in-out infinite alternate;
+  }
+  @keyframes blob-pulse {
+    0%   { transform: scale(1) translate(0%, 0%); opacity: 0.8; }
+    50%  { transform: scale(1.08) translate(-3%, 2%); opacity: 1; }
+    100% { transform: scale(0.95) translate(2%, -1%); opacity: 0.7; }
+  }
+
+  /* ---------- Noise Texture SVG ---------- */
+  .hero-noise {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    opacity: 0.025;
+    pointer-events: none;
+    mix-blend-mode: multiply;
+  }
+
+  /* ---------- Floating Particles ---------- */
+  .particles {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    overflow: hidden;
+  }
+  .particle {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: var(--indigo-500);
+    opacity: 0;
+  }
+  .particle:nth-child(1) { left: 15%; top: 20%; animation: particle-drift 18s ease-in-out infinite; animation-delay: 0s; }
+  .particle:nth-child(2) { left: 75%; top: 35%; animation: particle-drift 22s ease-in-out infinite; animation-delay: 2s; }
+  .particle:nth-child(3) { left: 45%; top: 70%; animation: particle-drift 16s ease-in-out infinite; animation-delay: 4s; }
+  .particle:nth-child(4) { left: 85%; top: 15%; animation: particle-drift 20s ease-in-out infinite; animation-delay: 1s; }
+  .particle:nth-child(5) { left: 25%; top: 55%; animation: particle-drift 14s ease-in-out infinite; animation-delay: 3s; }
+  .particle:nth-child(6) { left: 60%; top: 80%; animation: particle-drift 24s ease-in-out infinite; animation-delay: 5s; }
+  .particle:nth-child(7) { left: 10%; top: 85%; animation: particle-drift 19s ease-in-out infinite; animation-delay: 2.5s; }
+  .particle:nth-child(8) { left: 90%; top: 60%; animation: particle-drift 17s ease-in-out infinite; animation-delay: 4.5s; }
+  @keyframes particle-drift {
+    0%   { transform: translate(0, 0) scale(0); opacity: 0; }
+    10%  { opacity: 0.4; transform: translate(10px, -20px) scale(1); }
+    40%  { opacity: 0.15; transform: translate(-20px, -60px) scale(0.6); }
+    70%  { opacity: 0.3; transform: translate(15px, -100px) scale(0.8); }
+    100% { transform: translate(-10px, -140px) scale(0); opacity: 0; }
+  }
+
+  /* ============================================
+     CONTAINER & LAYOUT
+     ============================================ */
+  .hero-container {
+    position: relative;
+    z-index: 2;
+    width: min(1200px, 100%);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  /* ============================================
+     LEFT COLUMN — TEXT
+     ============================================ */
+  .hero-text { max-width: 560px; }
+
+  /* Coordinate Badge */
+  .coordinate-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.05em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    padding: 0.375rem 0.75rem;
+    border: 1px solid var(--hairline);
+    border-radius: 100px;
+    background: rgba(255,255,255,0.5);
+    backdrop-filter: blur(8px);
+    opacity: 0;
+    animation: fade-up 0.8s ease 0.1s forwards;
+  }
+  .coordinate-badge::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--indigo-500);
+    animation: ping-dot 2s ease-in-out infinite;
+  }
+  @keyframes ping-dot {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.4); }
+  }
+
+  /* Headline */
+  .hero-headline {
+    font-size: clamp(2.5rem, 5.5vw, 4.25rem);
+    font-weight: 700;
+    line-height: 1.04;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+    opacity: 0;
+    animation: fade-up 0.8s ease 0.2s forwards;
+  }
+  .hero-headline .highlight {
+    background: linear-gradient(135deg, var(--purple-500) 0%, var(--blue-500) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-weight: 800;
+  }
+
+  /* Subtext */
+  .hero-subtext {
+    margin-top: 1.25rem;
+    font-size: clamp(1rem, 1.3vw, 1.125rem);
+    line-height: 1.7;
+    color: var(--muted);
+    max-width: 480px;
+    opacity: 0;
+    animation: fade-up 0.8s ease 0.35s forwards;
+  }
+
+  /* CTA Buttons */
+  .hero-ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.875rem;
+    margin-top: 2.25rem;
+    opacity: 0;
+    animation: fade-up 0.8s ease 0.5s forwards;
+  }
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 3rem;
+    padding: 0.75rem 2rem;
+    border: none;
+    border-radius: 100px;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    font-family: var(--font-sans);
+    color: var(--white);
+    background: linear-gradient(135deg, var(--purple-500) 0%, var(--indigo-500) 100%);
+    cursor: pointer;
+    text-decoration: none;
+    transition: transform 0.25s ease, box-shadow 0.3s ease;
+    box-shadow: 0 0 20px rgba(124, 77, 255, 0.15);
+    position: relative;
+    overflow: hidden;
+  }
+  .btn-primary::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, var(--purple-600) 0%, var(--indigo-600) 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    border-radius: 100px;
+  }
+  .btn-primary:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 8px 32px rgba(124, 77, 255, 0.3);
+  }
+  .btn-primary:hover::before { opacity: 1; }
+  .btn-primary span { position: relative; z-index: 1; }
+  .btn-primary:active { transform: translateY(0) scale(0.98); }
+
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 3rem;
+    padding: 0.75rem 2rem;
+    border-radius: 100px;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    font-family: var(--font-sans);
+    color: var(--ink);
+    background: transparent;
+    border: 1.5px solid var(--hairline);
+    cursor: pointer;
+    text-decoration: none;
+    transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+  }
+  .btn-secondary:hover {
+    transform: translateY(-2px) scale(1.02);
+    border-color: var(--indigo-400);
+    background: rgba(61, 90, 254, 0.04);
+    box-shadow: 0 4px 20px rgba(61, 90, 254, 0.08);
+  }
+  .btn-secondary:active { transform: translateY(0) scale(0.98); }
+
+  /* ---------- Trust Bar ---------- */
+  .trust-bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1.25rem;
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--hairline);
+    opacity: 0;
+    animation: fade-up 0.8s ease 0.65s forwards;
+  }
+  .trust-label {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--muted);
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .trust-logos {
+    display: flex;
+    gap: 1.25rem;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .trust-logo {
+    height: 1.5rem;
+    padding: 0 0.75rem;
+    border-radius: 4px;
+    background: rgba(0,0,0,0.04);
+    display: flex;
+    align-items: center;
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    color: rgba(0,0,0,0.2);
+    text-transform: uppercase;
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+  .trust-logo:hover { background: rgba(0,0,0,0.07); color: rgba(0,0,0,0.35); }
+
+  /* ============================================
+     RIGHT COLUMN — VISUAL / CHART
+     ============================================ */
+  .hero-visual {
+    position: relative;
+    min-height: 380px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    animation: fade-up 0.8s ease 0.15s forwards;
+  }
+
+  /* ---------- SVG Chart ---------- */
+  .chart-svg {
+    width: 100%;
+    height: auto;
+    overflow: visible;
+  }
+
+  /* Animated path — draws on load */
+  .chart-path-bg {
+    stroke: var(--hairline);
+    stroke-width: 1.5;
+    stroke-dasharray: 6 10;
+    fill: none;
+  }
+  .chart-path-main {
+    stroke: url(#chart-gradient);
+    stroke-width: 3;
+    stroke-linecap: round;
+    fill: none;
+    stroke-dasharray: 800;
+    stroke-dashoffset: 800;
+    animation: draw-line 2s ease-out 0.5s forwards;
+    filter: drop-shadow(0 0 6px rgba(124, 77, 255, 0.25));
+  }
+  @keyframes draw-line {
+    to { stroke-dashoffset: 0; }
+  }
+
+  /* Chart dots — pop in sequentially */
+  .chart-dot {
+    opacity: 0;
+    transform: scale(0);
+  }
+  .chart-dot-1 { animation: pop-in 0.5s ease 1.6s forwards; }
+  .chart-dot-2 { animation: pop-in 0.5s ease 2.0s forwards; }
+  .chart-dot-3 { animation: pop-in 0.5s ease 2.4s forwards; }
+
+  @keyframes pop-in {
+    0%   { opacity: 0; transform: scale(0); }
+    60%  { opacity: 1; transform: scale(1.25); }
+    100% { opacity: 1; transform: scale(1); }
+  }
+
+  /* Glow ring around dots */
+  .chart-dot-ring {
+    opacity: 0;
+    animation: glow-ring 2s ease-in-out 2.8s infinite;
+  }
+  .chart-dot-ring-1 { animation-delay: 2.8s; }
+  .chart-dot-ring-2 { animation-delay: 3.2s; }
+  .chart-dot-ring-3 { animation-delay: 3.6s; }
+  @keyframes glow-ring {
+    0%, 100% { opacity: 0; transform: scale(1); }
+    50% { opacity: 0.35; transform: scale(1.8); }
+  }
+
+  /* Chart labels — fade up */
+  .chart-label {
+    opacity: 0;
+    transform: translateY(6px);
+    animation: label-fade 0.5s ease forwards;
+  }
+  .chart-label-1 { animation-delay: 1.8s; }
+  .chart-label-2 { animation-delay: 2.2s; }
+  .chart-label-3 { animation-delay: 2.6s; }
+  @keyframes label-fade {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Chart sub-label (date/description) */
+  .chart-sublabel {
+    opacity: 0;
+    animation: label-fade 0.5s ease forwards;
+  }
+  .chart-sublabel-1 { animation-delay: 2.0s; }
+  .chart-sublabel-2 { animation-delay: 2.4s; }
+  .chart-sublabel-3 { animation-delay: 2.8s; }
+
+  /* ---------- Floating note ---------- */
+  .hero-note {
+    position: absolute;
+    bottom: 0.5rem;
+    right: 0;
+    max-width: 280px;
+    padding-top: 1rem;
+    border-top: 1px solid var(--hairline);
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    line-height: 1.6;
+    color: var(--muted);
+    opacity: 0;
+    animation: fade-up 0.8s ease 1.2s forwards;
+  }
+
+  /* ============================================
+     ANIMATIONS
+     ============================================ */
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ============================================
+     RESPONSIVE
+     ============================================ */
+  @media (max-width: 1024px) {
+    .hero-container {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+    }
+    .hero-text { max-width: 100%; }
+    .hero-headline { font-size: clamp(2.25rem, 6vw, 3.25rem); }
+    .hero-visual { min-height: 300px; }
+    .hero-blob { width: 70%; height: 60%; top: 20%; right: 15%; }
+  }
+
+  @media (max-width: 640px) {
+    .hero { padding: 5rem 1.25rem 3rem; min-height: auto; }
+    .hero-container { gap: 2rem; }
+    .hero-headline { font-size: 2.125rem; }
+    .hero-subtext { font-size: 0.9375rem; margin-top: 1rem; }
+    .hero-ctas { flex-direction: column; }
+    .btn-primary, .btn-secondary { width: 100%; }
+    .hero-visual { min-height: 220px; }
+    .trust-bar { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
+    .hero-note { position: static; max-width: 100%; margin-top: 1rem; }
+    .hero-blob { width: 90%; height: 50%; top: 25%; right: 5%; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
+    .hero-bg::before { animation: none; }
+    .hero-blob { animation: none; }
+    .chart-path-main { stroke-dashoffset: 0; }
+    .coordinate-badge, .hero-headline, .hero-subtext, .hero-ctas,
+    .trust-bar, .hero-visual, .hero-note { opacity: 1; animation: none; }
+    .chart-dot, .chart-label, .chart-sublabel { opacity: 1; transform: none; animation: none; }
+    .particle { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============================================
+     HERO
+     ============================================ -->
+<section class="hero">
+
+  <!-- Background Layers -->
+  <div class="hero-bg" aria-hidden="true"></div>
+  <div class="hero-grid" aria-hidden="true"></div>
+  <div class="hero-blob" aria-hidden="true"></div>
+
+  <!-- Noise Texture -->
+  <svg class="hero-noise" aria-hidden="true">
+    <filter id="noise">
+      <feTurbulence type="fractalNoise" baseFrequency="0.7" numOctaves="3" stitchTiles="stitch" />
+      <feColorMatrix type="saturate" values="0" />
+    </filter>
+    <rect width="100%" height="100%" filter="url(#noise)" opacity="0.5" />
+  </svg>
+
+  <!-- Particles -->
+  <div class="particles" aria-hidden="true">
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+  </div>
+
+  <!-- Content -->
+  <div class="hero-container">
+
+    <!-- LEFT: Text -->
+    <div class="hero-text">
+      <div class="coordinate-badge">
+        <span>25.2°N 55.3°E – Dubai</span>
+      </div>
+
+      <h1 class="hero-headline">
+        Software built for the stack the product actually
+        <span class="highlight">needs.</span>
+      </h1>
+
+      <p class="hero-subtext">
+        Tora takes an idea from zero to a market-ready MVP, then scales it into durable software for startups and enterprises.
+      </p>
+
+      <div class="hero-ctas">
+        <a href="#" class="btn-primary"><span>Start a project</span></a>
+        <a href="#" class="btn-secondary">See our stack</a>
+      </div>
+
+      <!-- Trust Bar -->
+      <div class="trust-bar">
+        <span class="trust-label">Trusted by</span>
+        <div class="trust-logos">
+          <span class="trust-logo">Startups</span>
+          <span class="trust-logo">Enterprises</span>
+          <span class="trust-logo">Venture</span>
+          <span class="trust-logo">Scale-ups</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: Visual / Chart -->
+    <div class="hero-visual">
+      <svg class="chart-svg" viewBox="0 0 560 320" fill="none" role="img" aria-label="Trajectory from Idea to MVP to Scale">
+        <!-- Grid lines -->
+        <line x1="40" y1="260" x2="540" y2="260" stroke="#E8E6E1" stroke-width="0.5" />
+        <line x1="40" y1="200" x2="540" y2="200" stroke="#E8E6E1" stroke-width="0.5" stroke-dasharray="2 4" />
+        <line x1="40" y1="140" x2="540" y2="140" stroke="#E8E6E1" stroke-width="0.5" stroke-dasharray="2 4" />
+        <line x1="40" y1="80" x2="540" y2="80" stroke="#E8E6E1" stroke-width="0.5" stroke-dasharray="2 4" />
+        <line x1="40" y1="20" x2="540" y2="20" stroke="#E8E6E1" stroke-width="0.5" stroke-dasharray="2 4" />
+
+        <!-- Background path (dashed) -->
+        <path class="chart-path-bg" d="M 60 240 C 180 200, 240 180, 280 140 C 320 100, 380 90, 520 40" />
+
+        <!-- Animated main path -->
+        <path class="chart-path-main" d="M 60 240 C 180 200, 240 180, 280 140 C 320 100, 380 90, 520 40" />
+
+        <!-- Dot 1: Idea -->
+        <g>
+          <circle class="chart-dot chart-dot-1" cx="60" cy="240" r="6" fill="var(--indigo-500)" />
+          <circle class="chart-dot-ring chart-dot-ring-1" cx="60" cy="240" r="6" fill="none" stroke="var(--indigo-500)" stroke-width="2" />
+          <text class="chart-label chart-label-1" x="60" y="268" fill="var(--ink)" font-size="13" font-weight="600" font-family="var(--font-sans)" text-anchor="middle">Idea</text>
+          <text class="chart-sublabel chart-sublabel-1" x="60" y="283" fill="var(--muted)" font-size="10" font-family="var(--font-mono)" text-anchor="middle">Discovery</text>
+        </g>
+
+        <!-- Dot 2: MVP -->
+        <g>
+          <circle class="chart-dot chart-dot-2" cx="280" cy="140" r="7" fill="url(#dot-gradient-mid)" />
+          <circle class="chart-dot-ring chart-dot-ring-2" cx="280" cy="140" r="7" fill="none" stroke="var(--purple-500)" stroke-width="2" />
+          <text class="chart-label chart-label-2" x="280" y="120" fill="var(--ink)" font-size="13" font-weight="600" font-family="var(--font-sans)" text-anchor="middle">MVP</text>
+          <text class="chart-sublabel chart-sublabel-2" x="280" y="105" fill="var(--muted)" font-size="10" font-family="var(--font-mono)" text-anchor="middle">4–8 Weeks</text>
+        </g>
+
+        <!-- Dot 3: Scale -->
+        <g>
+          <circle class="chart-dot chart-dot-3" cx="520" cy="40" r="8" fill="var(--purple-500)" />
+          <circle class="chart-dot-ring chart-dot-ring-3" cx="520" cy="40" r="8" fill="none" stroke="var(--purple-500)" stroke-width="2" />
+          <text class="chart-label chart-label-3" x="520" y="20" fill="var(--ink)" font-size="13" font-weight="600" font-family="var(--font-sans)" text-anchor="middle">Scale</text>
+          <text class="chart-sublabel chart-sublabel-3" x="520" y="5" fill="var(--muted)" font-size="10" font-family="var(--font-mono)" text-anchor="middle">Enterprise</text>
+        </g>
+
+        <!-- Arrow at end -->
+        <g opacity="0" class="chart-dot chart-dot-3" style="animation-delay: 2.6s">
+          <line x1="520" y1="40" x2="536" y2="36" stroke="var(--purple-500)" stroke-width="2" stroke-linecap="round" />
+          <line x1="520" y1="40" x2="533" y2="44" stroke="var(--purple-500)" stroke-width="2" stroke-linecap="round" />
+        </g>
+
+        <!-- Subtle area fill under curve -->
+        <path d="M 60 240 C 180 200, 240 180, 280 140 C 320 100, 380 90, 520 40 L 520 260 L 60 260 Z" fill="url(#area-gradient)" opacity="0.06" />
+
+        <defs>
+          <linearGradient id="chart-gradient" x1="60" y1="240" x2="520" y2="40" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="var(--indigo-500)" />
+            <stop offset="50%" stop-color="var(--purple-500)" />
+            <stop offset="100%" stop-color="var(--purple-400)" />
+          </linearGradient>
+          <radialGradient id="dot-gradient-mid" cx="50%" cy="50" r="50%">
+            <stop offset="0%" stop-color="var(--purple-400)" />
+            <stop offset="100%" stop-color="var(--indigo-500)" />
+          </radialGradient>
+          <linearGradient id="area-gradient" x1="60" y1="240" x2="520" y2="40" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="var(--indigo-500)" stop-opacity="1" />
+            <stop offset="100%" stop-color="var(--purple-500)" stop-opacity="0" />
+          </linearGradient>
+        </defs>
+      </svg>
+
+      <!-- Note -->
+      <div class="hero-note">
+        Deliberate stack matching. No default framework. No throwaway first build.
+      </div>
+    </div>
+
+  </div>
+</section>
+
+</body>
+</html>
