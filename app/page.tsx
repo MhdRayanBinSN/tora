@@ -5,6 +5,9 @@ import { Hero } from "@/components/sections/Hero";
 import { Process } from "@/components/sections/Process";
 import { ServiceGrid } from "@/components/sections/ServiceGrid";
 import { StackShowcase } from "@/components/sections/StackShowcase";
+import { WhoWeAre } from "@/components/sections/WhoWeAre";
+import { Expertise } from "@/components/sections/Expertise";
+import { ImpactBanner } from "@/components/sections/ImpactBanner";
 import { ButtonLink } from "@/components/ui/Button";
 
 export const metadata: Metadata = {
@@ -22,6 +25,8 @@ export default function HomePage() {
   return (
     <>
       <Hero />
+      <WhoWeAre />
+      <Expertise />
       <section className="relative overflow-hidden py-section-sm">
         {/* Section background accent */}
         <div
@@ -43,6 +48,7 @@ export default function HomePage() {
           <ServiceGrid limit={3} />
         </div>
       </section>
+      <ImpactBanner />
       <StackShowcase compact />
       <Process />
       <EngagementModels />

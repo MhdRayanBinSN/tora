@@ -18,7 +18,7 @@ const serviceLinks = [
 
 const selectedServices = services.filter((service) => serviceLinks.includes(service.slug));
 
-export function Nav() {
+export function Nav({ isDark = false }: { isDark?: boolean }) {
   const pathname = usePathname();
   const servicesActive = pathname.startsWith("/services");
   const [servicesOpen, setServicesOpen] = useState(false);
@@ -32,7 +32,7 @@ export function Nav() {
   return (
     <nav aria-label="Primary" className="flex items-center justify-end">
       <div className="hidden items-center gap-1 lg:flex">
-        <TopLink href="/about" label="About" withCaret active={pathname.startsWith("/about")} />
+        <TopLink href="/about" label="About" withCaret active={pathname.startsWith("/about")} isDark={isDark} />
         <div
           className="group"
           onMouseEnter={() => setServicesOpen(true)}
@@ -44,7 +44,9 @@ export function Nav() {
             type="button"
             className={`flex h-[68px] items-center gap-1.5 px-4 text-[13px] font-semibold tracking-wide transition-colors duration-150 ${servicesActive || servicesOpen
                 ? "text-indigo"
-                : "text-ink/55 hover:text-ink"
+                : isDark
+                  ? "text-white/65 hover:text-white"
+                  : "text-ink/55 hover:text-ink"
               }`}
             aria-expanded={servicesOpen}
             aria-controls="services-mega-menu"
@@ -55,22 +57,39 @@ export function Nav() {
           </button>
           <MegaMenu open={servicesOpen} />
         </div>
-        <TopLink href="/process" label="Process" active={pathname.startsWith("/process")} />
+        <TopLink href="/process" label="Process" active={pathname.startsWith("/process")} isDark={isDark} />
         <Link
           href="/contact"
-          className="ml-3 inline-flex items-center rounded-lg bg-ink px-5 py-2 text-[13px] font-semibold text-white transition-all duration-150 hover:bg-ink/85"
+          className={`ml-3 inline-flex items-center rounded-lg px-5 py-2 text-[13px] font-semibold transition-all duration-150 ${
+            isDark
+              ? "bg-white text-ink hover:bg-white/90"
+              : "bg-ink text-white hover:bg-ink/85"
+          }`}
         >
           Contact
         </Link>
       </div>
       <div className="flex items-center gap-4.5 text-[13px] font-semibold lg:hidden">
-        <Link href="/services" className="text-ink/60 transition hover:text-ink">
+        <Link
+          href="/services"
+          className={`transition ${isDark ? "text-white/70 hover:text-white" : "text-ink/60 hover:text-ink"}`}
+        >
           Services
         </Link>
-        <Link href="/process" className="text-ink/60 transition hover:text-ink">
+        <Link
+          href="/process"
+          className={`transition ${isDark ? "text-white/70 hover:text-white" : "text-ink/60 hover:text-ink"}`}
+        >
           Process
         </Link>
-        <Link href="/contact" className="rounded-lg bg-ink px-4 py-1.5 text-white transition hover:bg-ink/85">
+        <Link
+          href="/contact"
+          className={`rounded-lg px-4 py-1.5 transition-all duration-150 ${
+            isDark
+              ? "bg-white text-ink hover:bg-white/90"
+              : "bg-ink text-white hover:bg-ink/85"
+          }`}
+        >
           Contact
         </Link>
       </div>
@@ -82,19 +101,23 @@ function TopLink({
   href,
   label,
   active,
-  withCaret = false
+  withCaret = false,
+  isDark = false
 }: {
   href: string;
   label: string;
   active: boolean;
   withCaret?: boolean;
+  isDark?: boolean;
 }) {
   return (
     <Link
       href={href}
       className={`flex h-[68px] items-center gap-1.5 px-4 text-[13px] font-semibold tracking-wide transition-colors duration-150 ${active
           ? "text-indigo"
-          : "text-ink/55 hover:text-ink"
+          : isDark
+            ? "text-white/65 hover:text-white"
+            : "text-ink/55 hover:text-ink"
         }`}
       aria-current={active ? "page" : undefined}
     >
